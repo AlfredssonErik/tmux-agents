@@ -3,6 +3,8 @@
 Event-driven OpenCode status for tmux. See every OpenCode process in your
 status bar and jump to any agent from a native tmux menu.
 
+Note: This is vibe coded WIP slop. 
+
 ## Requirements
 
 - tmux 3.4+
