@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -u
+
+root="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+
+usage() {
+    printf 'usage: %s {install|uninstall|status|doctor|prune} [args]\n' "$0" >&2
+    exit 2
+}
+
+case "${1:-}" in
+    install|uninstall|status|doctor)
+        [ "${2:-opencode}" = opencode ] || usage
+        exec "$root/scripts/install-opencode.sh" "$1"
+        ;;
+    prune)
+        exec "$root/scripts/prune.sh"
+        ;;
+    *) usage ;;
+esac
