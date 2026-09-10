@@ -14,7 +14,7 @@ set -g @plugin 'AlfredssonErik/tmux-agents'
 Install OpenCode bridge:
 
 ```sh
-~/.tmux/plugins/tmux-agents/bin/tmux-agents install opencode
+~/.tmux/plugins/tmux-agents/bin/tmux-agents install
 ```
 
 Add status component and reload tmux:
@@ -32,7 +32,7 @@ run-shell '/PATH/TO/tmux-agents/tmux-agents.tmux'
 Install OpenCode bridge:
 
 ```sh
-/PATH/TO/tmux-agents/bin/tmux-agents install opencode
+/PATH/TO/tmux-agents/bin/tmux-agents install
 ```
 
 ## Configuration
