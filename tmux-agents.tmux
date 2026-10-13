@@ -28,12 +28,14 @@ set_default @tmux_agents_menu_border_style 'fg=#89b4fa'
 set_default @tmux_agents_menu_border_lines rounded
 set_default @tmux_agents_status_icon '◆'
 set_default @tmux_agents_icon_working '󰔟'
+set_default @tmux_agents_icon_pending '…'
 set_default @tmux_agents_icon_waiting '?'
 set_default @tmux_agents_icon_idle '✓'
 set_default @tmux_agents_icon_error '!'
 set_default @tmux_agents_icon_active '●'
 set_default @tmux_agents_status_fg '#1e1e2e'
 set_default @tmux_agents_color_working yellow
+set_default @tmux_agents_color_pending blue
 set_default @tmux_agents_color_waiting red
 set_default @tmux_agents_color_idle green
 set_default @tmux_agents_color_error magenta
@@ -54,6 +56,6 @@ fi
 if [ "$(tmux show-option -gqv @tmux_agents_mouse)" = on ]; then
     tmux bind-key -T root MouseDown1Status if-shell -F \
         '#{m/r:^%[0-9]+$,#{mouse_status_range}}' \
-        "run-shell -b '$TMUX_AGENTS_DIR/scripts/click-agent.sh \"#{mouse_status_range}\" \"#{client_tty}\"'" \
+        'run-shell -C "switch-client -t #{mouse_status_range}"' \
         'switch-client -t ='
 fi

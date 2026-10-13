@@ -13,10 +13,12 @@ check 'shell syntax' bash -n "$root/tmux-agents.tmux"
 check 'clickable status range' grep -q 'range=user' "$root/scripts/render-status.sh"
 check 'user status range' grep -q 'range=user' "$root/scripts/render-status.sh"
 check 'click helper syntax' bash -n "$root/scripts/click-agent.sh"
+check 'status click switches pane in originating client' grep -q 'run-shell -C "switch-client -t #{mouse_status_range}"' "$root/tmux-agents.tmux"
 check 'notification syntax' bash -n "$root/scripts/notify.sh"
 check 'osascript notification backend' grep -q '/usr/bin/osascript -' "$root/scripts/notify.sh"
 check 'input notification title' grep -q "OpenCode needs input" "$root/scripts/notify.sh"
 check 'input notification trigger' grep -q 'state" = waiting' "$root/scripts/update-state.sh"
+check 'pending state accepted' grep -q 'working|pending|waiting' "$root/scripts/update-state.sh"
 check 'owner validation' grep -q 'previous_owner.*owner' "$root/scripts/update-state.sh"
 check 'live owner protection' grep -q 'previous_pid' "$root/scripts/update-state.sh"
 check 'claim contention status' grep -q 'exit 75' "$root/scripts/update-state.sh"
@@ -38,7 +40,9 @@ for script in "$root"/scripts/*.sh; do
     check "syntax $(basename "$script")" bash -n "$script"
 done
 if command -v node >/dev/null 2>&1; then
-    check 'bridge syntax' node --check "$root/integrations/opencode-tmux-agents.js"
+    check 'OpenCode server plugin syntax' node --check "$root/integrations/opencode-tmux-agents/index.js"
+    check 'OpenCode TUI plugin syntax' node --check "$root/integrations/opencode-tmux-agents/tui.js"
+    check 'OpenCode per-instance event tracking' node "$root/tests/opencode-plugin.mjs" "$root/integrations/opencode-tmux-agents/index.js"
 fi
 if grep -n 'wait-for -[LU] tmux-agents-state' "$root/scripts/update-state.sh"; then
     printf 'not ok - updater has stranded global lock\n'

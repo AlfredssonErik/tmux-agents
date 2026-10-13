@@ -23,7 +23,7 @@ while [ "$#" -gt 0 ]; do
 done
 [ -n "$action" ] && [ -n "$pane" ] && [ -n "$owner" ] || usage
 if [ "$action" != clear ]; then
-    case "$state" in working|waiting|idle|error|active|off) ;; *) exit 2 ;; esac
+    case "$state" in working|pending|waiting|idle|error|active|off) ;; *) exit 2 ;; esac
 fi
 case "$action" in claim|update|clear) ;; *) exit 2 ;; esac
 case "$pane" in %*) ;; *) exit 2 ;; esac

@@ -1,0 +1,8 @@
+{
+  "name": "tmux-agents-opencode-plugin",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./tui": "./tui.js"
+  }
+}
